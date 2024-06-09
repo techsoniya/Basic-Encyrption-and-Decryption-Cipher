@@ -1,23 +1,38 @@
-import logo from './logo.svg';
+// src/App.js
+import React, { useState } from 'react';
 import './App.css';
+import CipherSelector from './components/CipherSelector';
+import CaesarCipher from './components/CaesarCipher';
+import MonoalphabeticCipher from './components/MonoalphabeticCipher';
+import PolyalphabeticCipher from './components/PolyalphabeticCipher';
+import PlayfairCipher from './components/PlayfairCipher';
+import HillCipher from './components/HillCipher';
 
 function App() {
+  const [selectedCipher, setSelectedCipher] = useState('Caesar');
+
+  const renderCipherComponent = () => {
+    switch (selectedCipher) {
+      case 'Caesar':
+        return <CaesarCipher />;
+      case 'Monoalphabetic':
+        return <MonoalphabeticCipher />;
+      case 'Polyalphabetic':
+        return <PolyalphabeticCipher />;
+      case 'Playfair':
+        return <PlayfairCipher />;
+      case 'Hill':
+        return <HillCipher />;
+      default:
+        return <CaesarCipher />;
+    }
+  };
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <h1>Classical Encryption Toolkit</h1>
+      <CipherSelector selectedCipher={selectedCipher} setSelectedCipher={setSelectedCipher} />
+      {renderCipherComponent()}
     </div>
   );
 }
